@@ -1,7 +1,7 @@
 from environs import Env
 from aiogram.types import Optional
 
-from aiogram.utils import dataclass
+from dataclasses import dataclass
 
 
 @dataclass
@@ -74,7 +74,7 @@ class TgBot:
     """
 
     token: str
-    admin_ids: list[int]
+    admin_ids: int
     use_redis: bool
 
     @staticmethod
@@ -188,7 +188,7 @@ def load_config(path: str = None) -> Config:
     return Config(
         tg_bot=TgBot.from_env(env),
         db=DbConfig.from_env(env),
-        # redis=RedisConfig.from_env(env),
+        redis=RedisConfig.from_env(env),
         misc=Miscellaneous(),
     )
 

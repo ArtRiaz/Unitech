@@ -1,4 +1,4 @@
-"""
+
 from typing import Sequence, Union
 
 from alembic import op

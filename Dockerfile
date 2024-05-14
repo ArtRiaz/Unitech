@@ -1,4 +1,9 @@
-FROM ubuntu:latest
-LABEL authors="artem"
+FROM python:3.11-slim
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /usr/src/app/bot
+
+COPY requirements.txt /usr/src/app/bot
+
+RUN pip install -r /usr/src/app/bot/requirements.txt
+
+COPY . /usr/src/app/bot

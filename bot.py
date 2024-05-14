@@ -7,11 +7,15 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.storage.redis import RedisStorage, DefaultKeyBuilder
 from aiogram.types import BotCommand
 
-from config import load_config, Config
-from handlers import routers_list
-from tgbot.middlewares import ConfigMiddleware
+# from aiogram_dialog import setup_dialogs
+
+from tgbot.config import load_config, Config
+from tgbot.handlers import routers_list
+from tgbot.middlewares.config import ConfigMiddleware
 from tgbot.middlewares.database import DatabaseMiddleware
 from tgbot.services import broadcaster
+
+from infrastructure.database.setup import create_engine, create_session_pool
 
 bot_command = [
         BotCommand(command='start', description='🏁 Start the bot'),
@@ -98,15 +102,16 @@ async def main():
     bot = Bot(token=config.tg_bot.token, parse_mode="HTML")
     dp = Dispatcher(storage=storage)
 
-    # engine = create_engine(config.db, echo=True)
-    # session_pool = create_session_pool(engine)
+    engine = create_engine(config.db, echo=True)
+    session_pool = create_session_pool(engine)
 
     dp.include_routers(*routers_list)
     dp.update.outer_middleware(DatabaseMiddleware(session_pool))
 
+    # setup_dialogs(dp)
     register_global_middlewares(dp, config)
 
-    await bot.set_my_commands(commands=command_for_bot)
+    await bot.set_my_commands(commands=bot_command)
     await on_startup(bot, config.tg_bot.admin_ids)
     await dp.start_polling(bot)
 

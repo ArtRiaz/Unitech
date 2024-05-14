@@ -25,3 +25,5 @@ python-dotenv==1.0.1
 SQLAlchemy==2.0.30
 typing_extensions==4.11.0
 yarl==1.9.4
+redis
+aiogram_dialog~=2.0.0
