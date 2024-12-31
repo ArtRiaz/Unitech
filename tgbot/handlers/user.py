@@ -30,7 +30,7 @@ async def start(event: Message | CallbackQuery, bot: Bot, repo: RequestsRepo):
         user_name = event.from_user.username or "гость"
         await event.answer_photo(
             photo=photo,
-            caption=f"Привет, {user_name}!\n{caption}",
+            caption=f"Вiтаю, {user_name}!\n{caption}",
             reply_markup=start_keyboard_user()
         )
 
@@ -39,7 +39,7 @@ async def start(event: Message | CallbackQuery, bot: Bot, repo: RequestsRepo):
         await bot.send_photo(
             chat_id=event.message.chat.id,
             photo=photo,
-            caption=f"Привет, {user_name}!\n{caption}",
+            caption=f"Вiтаю, {user_name}!\n{caption}",
             reply_markup=start_keyboard_user()
         )
         await bot.answer_callback_query(event.id)
