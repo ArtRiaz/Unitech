@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from infrastructure.database.repo.users import UserRepo, CountSelectUser
 from infrastructure.database.setup import create_engine
 from infrastructure.database.repo.register import RegisterRepo, SelectRepo
-
+from infrastructure.database.repo.count import CountRepo
 
 @dataclass
 class RequestsRepo:
@@ -44,3 +44,10 @@ class RequestsRepo:
         The Register repository sessions are required to manage register operations.
         """
         return CountSelectUser(self.session)
+
+    @property
+    def count(self) -> CountRepo:
+        """
+        The Register repository sessions are required to manage register operations.
+        """
+        return CountRepo(self.session)

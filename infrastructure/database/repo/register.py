@@ -11,19 +11,18 @@ class RegisterRepo(BaseRepo):
     async def get_or_create_register(
             self,
             name: str,
-            age: str,
             contact: str,
-            profession: str,
-            expirience: str,
+            comment: str,
+            pdf_file: Optional[bytes] = None,
+
     ):
         insert_stmt = (
             insert(Register)
             .values(
                 name=name,
-                age=age,
                 contact=contact,
-                profession=profession,
-                expirience=expirience,
+                comment=comment,
+                pdf_file=pdf_file,
             )
             .returning(Register)
         )

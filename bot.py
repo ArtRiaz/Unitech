@@ -7,7 +7,6 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.storage.redis import RedisStorage, DefaultKeyBuilder
 from aiogram.types import BotCommand
 
-# from aiogram_dialog import setup_dialogs
 
 from tgbot.config import load_config, Config
 from tgbot.handlers import routers_list
@@ -22,8 +21,6 @@ bot_command = [
 ]
 
 
-async def on_startup(bot: Bot, admin_ids: list[int]):
-    await broadcaster.broadcast(bot, admin_ids, "Бот був запущений")
 
 
 def register_global_middlewares(dp: Dispatcher, config: Config, session_pool=None):
@@ -112,7 +109,6 @@ async def main():
     register_global_middlewares(dp, config)
 
     await bot.set_my_commands(commands=bot_command)
-    await on_startup(bot, config.tg_bot.admin_ids)
     await dp.start_polling(bot)
 
 
